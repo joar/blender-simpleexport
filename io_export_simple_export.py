@@ -4,19 +4,22 @@ from bpy_extras.io_utils import ExportHelper
 
 """
 Add-on info, used by the blender add-on manager
+
+ - bl_info documentation:
+   http://wiki.blender.org/index.php/Dev:2.5/Py/Scripts/Guidelines/Addons
 """
 
 bl_info = {
     "name": "Simple exporter",
     "description": "A very basic export plugin for blender",
     "author": "Joar Wandborg",
-    "version": (1,0),
+    "version": (1, 0),
     "blender": (2, 5, 8),
     "api": 31236,
     "location": "File > Export",
-    "warning": '', # used for warning icon and text in addons panel
-    "wiki_url": "http://wandborg.se/nothing-here",
-    "tracker_url": "http://wandborg.se/nothing-here",
+    "warning": '',
+    "wiki_url": "https://github.com/jwandborg/blender-simpleexport",
+    "tracker_url": "https://github.com/jwandborg/blender-simpleexport/issues",
     "category": "Import-Export"}
 
 
@@ -41,25 +44,33 @@ class SimpleExport(bpy.types.Operator, ExportHelper):
 
     def invoke(self, context, event):
         """
-        blender callback hook
+        blender add-on callback hook
+
+        This logic might look weird, but according to limited research it might
+        be vital for the IO functions of an add-on
+
+         - wm.fileselect_add(self)
+           Probably triggers the fileselect window in blender, will run
+           ``self.execute``
+         - wm.invoke_search_popup(self)
+           "search the enum"
+         - wm.invoke_props_popup(self, event)
+           "Redo popup"
+         - self.execute(self)
         """
         wm = context.window_manager
-        
-        # This looks weird, but I guess it makes sense.
+
         if True:
-            # File selector
-            wm.fileselect_add(self) # will run self.execute()
+            wm.fileselect_add(self)
             return {'RUNNING_MODAL'}
         elif True:
-            # search the enum
             wm.invoke_search_popup(self)
             return {'RUNNING_MODAL'}
         elif False:
-            # Redo popup
-            return wm.invoke_props_popup(self, event) #
+            return wm.invoke_props_popup(self, event)
         elif False:
             return self.execute(context)
-        
+
     def main(self, context):
         """
         This is the worker function where we get all the data and output it
@@ -70,7 +81,7 @@ class SimpleExport(bpy.types.Operator, ExportHelper):
         fd = open(self.filepath, 'w')
 
         """
-        Fetch data from blender, just like you do in 
+        Fetch data from blender, just like you do in
         the blender "Python Console", and output it to a file
         """
         for i in bpy.data.objects:
@@ -78,20 +89,28 @@ class SimpleExport(bpy.types.Operator, ExportHelper):
                 str(i) + '\n')
         return
 
+
+def menu_func(self, context):
+    """
+    Invoked by ``register()`` and adds the export menu menu item
+    """
+    self.layout.operator(SimpleExport.bl_idname, text='Simple export (.txt)')
+
+
 """
 blender add-on hook implementations
 """
 
-def menu_func(self, context):
-    self.layout.operator(SimpleExport.bl_idname, text = 'Simple export (.txt)')
 
 def register():
     bpy.utils.register_module(__name__)
     bpy.types.INFO_MT_file_export.append(menu_func)
 
+
 def unregister():
     bpy.utils.unregister_module(__name__)
     bpy.types.INFO_MT_file_export.remove(menu_func)
+
 
 if __name__ == '__main__':
     register()
