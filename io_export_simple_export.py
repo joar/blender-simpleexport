@@ -70,7 +70,7 @@ class SimpleExport(bpy.types.Operator, ExportHelper):
         fd = open(self.filepath, 'w')
 
         """
-        Fetch data from blender, just like you to in 
+        Fetch data from blender, just like you do in 
         the blender "Python Console", and output it to a file
         """
         for i in bpy.data.objects:
