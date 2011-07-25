@@ -12,5 +12,5 @@ A really simple axport add-on for blender
 6.  Find the add-on in the list and check the box right next to it
 7.  Done!
 
-Author: Joar Wandborg <http://wandborg.se>
-License: GPL
+*   Author: Joar Wandborg <http://wandborg.se>
+*   License: GPL
