@@ -13,7 +13,7 @@ bl_info = {
     "version": (1,0),
     "blender": (2, 5, 8),
     "api": 31236,
-    "location": "View3D > Add > Mesh",
+    "location": "File > Export",
     "warning": '', # used for warning icon and text in addons panel
     "wiki_url": "http://wandborg.se/nothing-here",
     "tracker_url": "http://wandborg.se/nothing-here",
