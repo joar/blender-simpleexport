@@ -113,16 +113,15 @@ class SimpleExport(bpy.types.Operator, ExportHelper):
             'I go by the name of {0}',
             '{0} here']
 
-        
-
         """
         Fetch data from blender, just like you do in
         the blender "Python Console", and output it to a file
         """
         for name, i in bpy.data.objects.items():
             object_output = '{greeting} {self_description}!\n'.format(
-                greeting = random.choice(greetings),
-                self_description = random.choice(self_descriptions).format(name))
+                greeting=random.choice(greetings),
+                self_description=random.choice(self_descriptions).format(
+                    name))
             fd.write(
                 object_output)
 
