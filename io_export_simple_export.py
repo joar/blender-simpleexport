@@ -1,6 +1,6 @@
 '''
 Simple Export
--- A simple export plugin for blender 2.5
+-- A simple export add-on for blender
 Copyright (C) 2011  Joar Wandborg
 
 This program is free software: you can redistribute it and/or modify
